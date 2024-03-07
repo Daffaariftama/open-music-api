@@ -12,6 +12,9 @@ const AlbumsValidator = require('./validator/albums');
 // Storage
 const StorageService = require('./services/storages/StorageService');
 
+// Cache
+const CacheService = require('./services/redis/CacheService');
+
 //songs
 const songs = require('./api/songs');
 const SongsService = require('./services/postgres/SongsService');
@@ -47,8 +50,8 @@ const ExportsValidator = require('./validator/exports');
 
 
 const init = async () => {
-
-	const albumsService = new AlbumsService();
+  const cacheService = new CacheService();
+	const albumsService = new AlbumsService(cacheService);
 	const songsService = new SongsService();
   const usersService = new UsersService();
   const authenticationsService = new AuthenticationsService();
